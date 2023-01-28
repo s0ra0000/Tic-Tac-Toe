@@ -31,7 +31,7 @@ function startGame(){
         cell.addEventListener('click',handleCellClick,{once:true})
     })
     setBoardHoverClass()
-    winningMessageElement.classList.remove('show')
+    winningMessageTextElement.classList.remove('show')
 }
 
 function handleCellClick(e){
@@ -52,9 +52,13 @@ function endGame(draw){
     if(draw){
         winningMessageTextElement.innerText = "Its a draw!"
     }else{
+        cellElements.forEach(cell =>{
+            
+            cell.classList.add('not-allowed');
+        })
         winningMessageTextElement.innerText = `Player with ${isPlayer_O_Turn ? "O's" : "X's"} wins!`
     }
-    winningMessageElement.classList.add('show')
+    winningMessageTextElement.classList.add('show')
 }
 
 function isDraw() {

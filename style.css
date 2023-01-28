@@ -1,17 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap');
 :root{
+	--bg: #314259;
     --cell-size:100px;
-    --color: #81c3fd;
-    --color-set: #0275d8;
+    --color: #498ca65d;
+    --color-set: #498BA6;
+	--count:#ce3ea7;
     --l: 10px;
+	font-family: 'Teko', sans-serif;
 }
 
 body{
     margin:0;
+	background-color: var(--bg);
 }
-
+.title{
+	color:white;
+	text-align: center;
+	height: 5vh;
+	margin-top: 50px;
+	margin-bottom:-50px;
+}
 .board{
     width: 100vw;
-    height: 100vh;
+    height: 60vh;
     display: grid;
     justify-content: center;
     align-content:center;
@@ -23,7 +34,7 @@ body{
 .cell{
     width: var(--cell-size);
     height: var(--cell-size);
-    border:1px solid black;
+    border:1px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,6 +56,10 @@ body{
 }
 .cell.x, .cell.circle{
     cursor: not-allowed;
+}
+.not-allowed{
+	cursor: not-allowed;
+	pointer-events:none;
 }
 
 .board.x .cell:not(.circle):not(.x):hover {
@@ -74,37 +89,60 @@ body{
 	background: radial-gradient(var(--color-set) 60%, transparent 60%);
 }
 
-.winning-message {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: var(--color-set);
+.winCounts{
+	height: 10vh;
+	width: 100vw;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: white;
-	font-size: 5rem;
+	letter-spacing: 2px;
+	font-size: 1.7rem;
+}
+.winCounts div span{
+	color: var(--count);
+}
+.xWins{
+	margin: 25px;
+}
+.yWins{
+	margin:25px;
+}
+
+.winning-message {
+	height: 20vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 1.3rem;
 	font-family: 'Courier New', Courier, monospace;
 	flex-direction: column;
 }
 
-.winning-message.show {
+#winningMessageText.show {
 	display: flex;
 }
 
 .winning-message button {
 	border-radius: 10px;
-	font-size: 3rem;
-	background-color: white;
-	border: 1px solid var(--color-set);
-	padding: .25em .5em;
+	font-size: 1.4rem;
+	background-color: var(--bg);
+	color:white;
+	border: 1px solid white;
+	padding: .35em .35em;
 	cursor: pointer;
+	height: 50px;
+	width: 150px;
 }
 
 .winning-message button:hover {
-	background-color: var(--color-set);
-	color: white;
+	background-color: white;
+	color: var(--bg);
 	border-color: white;
+}
+#winningMessageText{
+	display: none;
+	margin-bottom: 35px;
 }
