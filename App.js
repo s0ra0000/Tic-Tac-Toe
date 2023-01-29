@@ -16,13 +16,21 @@ const boardElement = document.getElementById('board')
 const winningMessageElement = document.getElementById('winningMessage')
 const restartButton = document.getElementById('restartButton')
 const winningMessageTextElement = document.getElementById('winningMessageText')
-let isPlayer_O_Turn = false
+let xPlayerScoreText = document.getElementById('xScore');
+let oPlayerScoreText = document.getElementById('oScore');
 
+let isPlayer_O_Turn = false
+let xPlayerScore = 0;
+let oPlayerScore = 0;
 startGame()
 
 restartButton.addEventListener('click',startGame)
 
 function startGame(){
+    cellElements.forEach(cell =>{
+        cell.classList.remove('not-allowed');
+        cell.classList.remove('winning-bg')
+    })
     isPlayer_O_Turn = false
     cellElements.forEach(cell => {
         cell.classList.remove(PLAYER_X_CLASS)
@@ -53,10 +61,17 @@ function endGame(draw){
         winningMessageTextElement.innerText = "Its a draw!"
     }else{
         cellElements.forEach(cell =>{
-            
             cell.classList.add('not-allowed');
         })
         winningMessageTextElement.innerText = `Player with ${isPlayer_O_Turn ? "O's" : "X's"} wins!`
+        if(!isPlayer_O_Turn){
+            xPlayerScore = ++xPlayerScore;
+            xPlayerScoreText.innerText = xPlayerScore
+
+        } else{
+            oPlayerScore = ++oPlayerScore;
+            oPlayerScoreText.innerText = oPlayerScore
+        }
     }
     winningMessageTextElement.classList.add('show')
 }
@@ -86,8 +101,15 @@ function setBoardHoverClass() {
 
 function checkWin(currentClass) {
 	return WINNING_COMBINATIONS.some(combination => {
-		return combination.every(index => {
+        if(combination.every(index => {
 			return cellElements[index].classList.contains(currentClass)
-		})
+		})){
+            combination.forEach(index =>{
+                cellElements[index].classList.add('winning-bg');
+            })
+            return true;
+        } else{
+            return false;
+        }
 	})
 }
